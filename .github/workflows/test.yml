@@ -1,0 +1,23 @@
+name: Test
+run-name: Test ${{github.sha}}
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure
+        run: cmake . -B build
+
+      - name: Build
+        run: cd build && make merak16_asm_test
+
+      - name: Test
+        run: build/merak16_asm_test
