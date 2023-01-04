@@ -4,6 +4,20 @@ extern "C" {
 
 #include <catch2/catch_test_macros.hpp>
 
+TEST_CASE("Parse with illegal token sequence", "[parse]") {
+    const char* src = "LH a1, a0(0)\n"
+                      "LI a2\n";
+    Token* tk;
+    tokenize(src, &tk);
+
+    unsigned char buf[1024];
+    size_t len = parse(tk, buf, 1024);
+
+    REQUIRE(len == 0);
+
+    freeTokens(tk);
+}
+
 TEST_CASE("Parse with legal token sequence", "[parse]") {
     const char* src = "LH  a1, a0(0)\n"
                       "LI  a2, 1\n"
