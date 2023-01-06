@@ -17,6 +17,7 @@ jobs:
         uses: johnwason/vcpkg-action@v4
         with:
           pkgs: catch2
+          token: ${{github.token}}
 
       - name: Configure
         run: cmake . -B build
