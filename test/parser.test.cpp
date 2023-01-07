@@ -35,6 +35,8 @@ TEST_CASE("Parse with legal token sequence", "[parse]") {
     unsigned char buf[1024];
     size_t len = parse(tk, buf, 1024);
 
+    REQUIRE(len == 10);
+
     for (size_t i = 0; i < len; ++i) {
         INFO("i = " << i);
         REQUIRE(buf[i] == expect[i]);
