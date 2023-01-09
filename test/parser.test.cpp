@@ -24,11 +24,11 @@ TEST_CASE("Parse with legal token sequence", "[parse]") {
                       "LI  a3, 1\n"
                       "ADD a1, a1, a2\n"
                       "ADD a2, a2, a3\n";
-    const unsigned char expect[] = { 0b001'001'0'0, 0b00'000'001,
-                                     0b010'000'0'0, 0b00'001'010,
-                                     0b010'000'0'0, 0b00'001'011,
-                                     0b000'011'0'0, 0b10'001'001,
-                                     0b000'011'0'0, 0b11'010'010 };
+    const unsigned char expect[] = { 0b00'000'001, 0b001'001'0'0,
+                                     0b00'001'010, 0b010'000'0'0,
+                                     0b00'001'011, 0b010'000'0'0,
+                                     0b10'001'001, 0b000'011'0'0,
+                                     0b11'010'010, 0b000'011'0'0 };
     Token* tk;
     tokenize(src, &tk);
 
