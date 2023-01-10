@@ -339,6 +339,6 @@ bool parseJALR(Token** curr, unsigned char* buf) {
 }
 
 void setBuf(unsigned char* buf, unsigned int val) {
-    buf[0] = (val >> 8) & 0xFF;
-    buf[1] = val & 0xFF;
+    buf[0] = val & 0xFF;
+    buf[1] = (val >> 8) & 0xFF;
 }

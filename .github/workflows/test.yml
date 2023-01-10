@@ -13,11 +13,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Run vcpkg
+        id: vcpkg
+        uses: johnwason/vcpkg-action@v4
+        with:
+          pkgs: catch2
+          triplet: x64-linux
+          token: ${{github.token}}
+
       - name: Configure
-        run: cmake . -B build
+        run: cmake . -B build ${{steps.vcpkg.outputs.vcpkg-cmake-config}}
 
       - name: Build
-        run: cd build && make merak16_asm_test
+        run: cmake --build build --target merak16_asm_test
 
       - name: Test
         run: build/merak16_asm_test
