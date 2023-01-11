@@ -2,6 +2,12 @@
 #include <stddef.h>
 #include "tokenizer.h"
 
+/// Parse a token sequence into machine code.
+///
+/// \param tk The token sequence.
+/// \param buf The buffer to contain machine code.
+/// \param cap The capacity of the buffer.
+/// \return The length of the machine code, \c 0 if an error occured.
 size_t parse(Token* tk, unsigned char* buf, size_t cap);
 
 bool parseBin(Token** curr, unsigned char* buf);
