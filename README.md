@@ -12,6 +12,6 @@ Please ensure CMake and Catch2v3 installed.
 mkdir build
 cd build
 cmake ..
-make merak16_asm      # Build the library.
-make merak16_asm_test # Build the test.
+cmake --build . --target merak16_asm      # Build the library.
+cmake --build . --target merak16_asm_test # Build the test.
 ```
