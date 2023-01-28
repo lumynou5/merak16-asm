@@ -1,8 +1,8 @@
 #include "parser.h"
 
-size_t parse(Token* tk, unsigned char* buf, size_t cap) {
-    size_t len = 0;
-    for (; tk->kind != TK_EOF && len < cap; tk = tk->next) {
+Token* parse(Token* tk, unsigned char* buf, size_t cap, size_t* len) {
+    *len = 0;
+    for (; tk->kind != TK_EOF && *len < cap; tk = tk->next) {
         switch (tk->kind) {
             case TK_INST_AND:
             case TK_INST_OR:
@@ -12,62 +12,62 @@ size_t parse(Token* tk, unsigned char* buf, size_t cap) {
             case TK_INST_SLL:
             case TK_INST_SRA:
             case TK_INST_SRL:
-                if (!parseBin(&tk, buf + len)) return 0;
+                if (!parseBin(&tk, buf + *len)) return NULL;
                 break;
 
             case TK_INST_NOT:
             case TK_INST_COM:
-                if (!parseMono(&tk, buf + len)) return 0;
+                if (!parseMono(&tk, buf + *len)) return NULL;
                 break;
 
             case TK_INST_MVHL:
-                if (!parseMVHL(&tk, buf + len)) return 0;
+                if (!parseMVHL(&tk, buf + *len)) return NULL;
                 break;
 
             case TK_INST_MVLH:
-                if (!parseMVLH(&tk, buf + len)) return 0;
+                if (!parseMVLH(&tk, buf + *len)) return NULL;
                 break;
 
             case TK_INST_MVH:
-                if (!parseMVH(&tk, buf + len)) return 0;
+                if (!parseMVH(&tk, buf + *len)) return NULL;
                 break;
 
             case TK_INST_LH:
-                if (!parseLH(&tk, buf + len)) return 0;
+                if (!parseLH(&tk, buf + *len)) return NULL;
                 break;
 
             case TK_INST_LI:
-                if (!parseLI(&tk, buf + len)) return 0;
+                if (!parseLI(&tk, buf + *len)) return NULL;
                 break;
 
             case TK_INST_SH:
-                if (!parseSH(&tk, buf + len)) return 0;
+                if (!parseSH(&tk, buf + *len)) return NULL;
                 break;
 
             case TK_INST_SLT:
             case TK_INST_SOE:
-                if (!parseSet(&tk, buf + len)) return 0;
+                if (!parseSet(&tk, buf + *len)) return NULL;
                 break;
 
             case TK_INST_BOZ:
             case TK_INST_BONZ:
-                if (!parseBoz(&tk, buf + len)) return 0;
+                if (!parseBoz(&tk, buf + *len)) return NULL;
                 break;
 
             case TK_INST_JAL:
-                if (!parseJAL(&tk, buf + len)) return 0;
+                if (!parseJAL(&tk, buf + *len)) return NULL;
                 break;
 
             case TK_INST_JALR:
-                if (!parseJALR(&tk, buf + len)) return 0;
+                if (!parseJALR(&tk, buf + *len)) return NULL;
                 break;
 
             default:
-                return 0;
+                return NULL;
         }
-        len += 2;
+        *len += 2;
     }
-    return len;
+    return tk;
 }
 
 bool parseBin(Token** curr, unsigned char* buf) {

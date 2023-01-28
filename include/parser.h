@@ -6,9 +6,12 @@
 ///
 /// \param tk The token sequence.
 /// \param buf The buffer to contain machine code.
-/// \param cap The capacity of the buffer.
-/// \return The length of the machine code, \c 0 if an error occured.
-size_t parse(Token* tk, unsigned char* buf, size_t cap);
+/// \param cap The capacity of the buffer, which must be multiple of 2.
+/// \param len The length of the machine code.
+/// \return If a null pointer returned, an error occured;
+///         if it points to an EOF token, parsing is done;
+///         else, the buffer is full and the next token is returned.
+Token* parse(Token* tk, unsigned char* buf, size_t cap, size_t* len);
 
 bool parseBin(Token** curr, unsigned char* buf);
 
