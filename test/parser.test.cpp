@@ -35,10 +35,10 @@ TEST_CASE("Parse with legal token sequence", "[parse]") {
 
     unsigned char buf[1024];
     size_t len;
-    Token* last = parse(tk, buf, 1024, &len);
+    Token* end = parse(tk, buf, 1024, &len);
 
-    REQUIRE(last != NULL);
-    REQUIRE(last->kind == TK_EOF);
+    REQUIRE(end != NULL);
+    REQUIRE(end->kind == TK_EOF);
     REQUIRE(len == 10);
 
     for (size_t i = 0; i < len; ++i) {
@@ -65,10 +65,10 @@ TEST_CASE("Parse with not enough buffer", "[parse]") {
 
     unsigned char buf[8];
     size_t len;
-    Token* last = parse(tk, buf, 8, &len);
+    Token* end = parse(tk, buf, 8, &len);
 
-    REQUIRE(last != NULL);
-    REQUIRE(last->kind != TK_EOF);
+    REQUIRE(end != NULL);
+    REQUIRE(end->kind != TK_EOF);
     REQUIRE(len == 8);
 
     for (size_t i = 0; i < len; ++i) {
@@ -76,10 +76,10 @@ TEST_CASE("Parse with not enough buffer", "[parse]") {
         REQUIRE(buf[i] == expect[i]);
     }
 
-    Token* new_last = parse(last, buf, 8, &len);
+    Token* new_end = parse(end, buf, 8, &len);
 
-    REQUIRE(new_last != NULL);
-    REQUIRE(new_last->kind == TK_EOF);
+    REQUIRE(new_end != NULL);
+    REQUIRE(new_end->kind == TK_EOF);
     REQUIRE(len == 2);
 
     for (size_t i = 0; i < len; ++i) {
