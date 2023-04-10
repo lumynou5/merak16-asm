@@ -51,5 +51,3 @@ const char* tokenize(const char* src, Token** res);
 ///
 /// \param tk The most parent token to free.
 void freeTokens(Token* tk);
-
-void appendToken(Token** curr, TokenKind kind, const char* str, unsigned int num);
