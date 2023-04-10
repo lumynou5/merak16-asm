@@ -26,6 +26,8 @@
     } \
 }
 
+static void appendToken(Token** curr, TokenKind kind, const char* str, unsigned int num);
+
 const char* tokenize(const char* src, Token** res) {
     Token head;
     head.next = NULL;
